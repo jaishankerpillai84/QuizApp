@@ -14,14 +14,13 @@ import android.widget.ListView;
 /**
  * Created by JaiPillai on 5/24/15.
  */
-public class AsyncWebServiceClient extends AsyncTask<URL, Integer, String> {
-    @Override
-    protected String doInBackground(URL... params) {
+public class WebServiceClient {
+    public String GetWebServiceOutput(URL url) {
         String output;
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         try {
-            urlConnection = (HttpURLConnection) params[0].openConnection();
+            urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 

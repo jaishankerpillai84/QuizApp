@@ -3,8 +3,10 @@ package app.com.quiz.android.quizapp;
 import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +23,28 @@ import java.net.URL;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-class SelectWebServiceClient extends AsyncWebServiceClient {
+class SelectWebServiceClient extends AsyncTask<URL, Integer, String> {
+    private View view;
+    private WebServiceClient client;
+
+    public SelectWebServiceClient(View view) {
+        this.view = view;
+        client = new WebServiceClient();
+    }
+
+    @Override
+    protected String doInBackground(URL... params) {
+        return client.GetWebServiceOutput(params[0]);
+    }
+
     @Override
     protected void onPostExecute(String s) {
-        List<String> quizList = new Gson().fromJson(s, new TypeToken<List<String>>(){}.getType());
+        Log.v("Webservice", "Adding quiz list");
+        List<String> quizList = new Gson().fromJson(s, new TypeToken<List<String>>() {
+        }.getType());
+        ListAdapter quizSelectAdapter = new ArrayAdapter<String>(view.getContext(), R.layout.list_select_item, quizList);
+        ListView quizSelectView = (ListView) view.findViewById(R.id.quizSelectList);
+        quizSelectView.setAdapter(quizSelectAdapter);
     }
 }
 
@@ -37,10 +57,10 @@ public class QuizSelectActivityFragment extends Fragment {
 
     public QuizSelectActivityFragment() {
         quizList = new ArrayList<String>();
-        quizList.add("Sports");
+        /*quizList.add("Sports");
         quizList.add("General Knowledge");
         quizList.add("Current Affairs");
-        quizList.add("Politics");
+        quizList.add("Politics");*/
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,11 +80,11 @@ public class QuizSelectActivityFragment extends Fragment {
         });
         URL newUrl = null;
         try {
-            newUrl = new URL("10.0.2.2:8080/QuizService/api/quizapp/get_quiz_list");
+            newUrl = new URL("http://10.0.2.2:8080/QuizService/api/quizapp/get_quiz_list");
+            new SelectWebServiceClient(rootView).execute(newUrl);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        new AsyncWebServiceClient().execute(newUrl);
         return rootView;
     }
 }
