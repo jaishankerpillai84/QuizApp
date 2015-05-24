@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.util.TimerTask;
+import java.text.SimpleDateFormat;
 
 class QuestionWebServiceClient extends AsyncTask<URL, Integer, String> {
     private View view;
@@ -46,7 +48,7 @@ class QuestionWebServiceClient extends AsyncTask<URL, Integer, String> {
         }.getType());
         Log.i("QuizApp", "Number of questions is " + fragment.getNumQuestions());
         fragment.startQuiz(view);
-        //fragment.startTimer(view);
+        fragment.startTimer(view);
     }
 }
 
@@ -87,25 +89,44 @@ public class QuizActivityFragment extends Fragment implements View.OnClickListen
         Button choice3 = (Button) rootView.findViewById(R.id.choice3);
         Button choice4 = (Button) rootView.findViewById(R.id.choice4);
         Button newQuiz = (Button) rootView.findViewById(R.id.newQuiz);
-        if(questionNo < questionDatas.size()) {
+        TextView timeLabel = (TextView) rootView.findViewById(R.id.timeLabel);
+        // Initialize
+        if(questionDatas.isEmpty()) {
+            newQuiz.setVisibility(View.INVISIBLE);
+            questionLabel.setVisibility(View.INVISIBLE);
+            choice1.setVisibility(View.INVISIBLE);
+            choice2.setVisibility(View.INVISIBLE);
+            choice3.setVisibility(View.INVISIBLE);
+            choice4.setVisibility(View.INVISIBLE);
+            timeLabel.setVisibility(View.INVISIBLE);
+        }
+        if(questionNo == 0 && !questionDatas.isEmpty()) {
+            newQuiz.setVisibility(View.INVISIBLE);
+            questionLabel.setVisibility(View.VISIBLE);
+            choice1.setVisibility(View.VISIBLE);
+            choice2.setVisibility(View.VISIBLE);
+            choice3.setVisibility(View.VISIBLE);
+            choice4.setVisibility(View.VISIBLE);
+            choice1.setOnClickListener(this);
+            choice2.setOnClickListener(this);
+            choice4.setOnClickListener(this);
+            choice3.setOnClickListener(this);
+        }
+        if (questionNo < questionDatas.size()) {
             QuestionData currentQuestionData = questionDatas.get(questionNo);
             questionLabel.setText(new StringBuilder("").append(questionNo + 1).append(". ").append(currentQuestionData.question).toString());
             choice1.setText(currentQuestionData.choices.get(0));
             choice2.setText(currentQuestionData.choices.get(1));
             choice3.setText(currentQuestionData.choices.get(2));
             choice4.setText(currentQuestionData.choices.get(3));
-            choice1.setOnClickListener(this);
-            choice2.setOnClickListener(this);
-            choice3.setOnClickListener(this);
-            choice4.setOnClickListener(this);
-            newQuiz.setVisibility(View.GONE);
         } else {
             questionLabel.setText("Quiz is complete");
-            choice1.setVisibility(View.GONE);
-            choice2.setVisibility(View.GONE);
-            choice3.setVisibility(View.GONE);
-            choice4.setVisibility(View.GONE);
+            choice1.setVisibility(View.INVISIBLE);
+            choice2.setVisibility(View.INVISIBLE);
+            choice3.setVisibility(View.INVISIBLE);
+            choice4.setVisibility(View.INVISIBLE);
             newQuiz.setVisibility(View.VISIBLE);
+            timeLabel.setVisibility(View.INVISIBLE);
             newQuiz.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -113,12 +134,10 @@ public class QuizActivityFragment extends Fragment implements View.OnClickListen
                     startActivity(selectQuiz);
                 }
             });
-            TextView timeLabel = (TextView) rootView.findViewById(R.id.timeLabel);
-            timeLabel.setVisibility(View.GONE);
         }
     }
 
-    /*public void startTimer(View rootView) {
+    public void startTimer(View rootView) {
         startTime = new Date();
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -137,7 +156,9 @@ public class QuizActivityFragment extends Fragment implements View.OnClickListen
                     });
             }
         }, 0, 1000);
-    }*/
+        TextView timeLabel = (TextView) rootView.findViewById(R.id.timeLabel);
+        timeLabel.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -154,6 +175,7 @@ public class QuizActivityFragment extends Fragment implements View.OnClickListen
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        startQuiz(rootView);
         return rootView;
     }
 

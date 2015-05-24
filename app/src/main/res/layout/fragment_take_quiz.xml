@@ -93,6 +93,7 @@
         android:id="@+id/newQuiz"
         android:background="@color/foregroundColor"
         android:textColor="@color/textColor"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible" />
 
 </LinearLayout>
