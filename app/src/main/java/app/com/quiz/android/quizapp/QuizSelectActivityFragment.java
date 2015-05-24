@@ -14,8 +14,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.net.URL;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -48,6 +50,13 @@ public class QuizSelectActivityFragment extends Fragment {
                 startActivity(playQuiz);
             }
         });
+        URL newUrl = null;
+        try {
+            newUrl = new URL("10.0.2.2:8080/QuizService/api/quizapp/get_quiz_list");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        new AsyncWebServiceClient().execute(newUrl);
         return rootView;
     }
 }

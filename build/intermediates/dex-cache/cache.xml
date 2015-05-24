@@ -2,32 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/Users/jaypillai/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.1.1/support-annotations-22.1.1.jar"
+        jar="/Users/JaiPillai/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="01d051a6bfb1218b1db2d3a5af0480ac2c25c42a">
-        <dex dex="/Users/jaypillai/AndroidStudioProjects/QuizApp/app/build/intermediates/pre-dexed/debug/support-annotations-22.1.1-0c0b699ca05dbfcd56d6cf101a70a0e39f15d4ff.jar" />
-    </item>
-    <item
-        jar="/Users/jaypillai/AndroidStudioProjects/QuizApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
-        <dex dex="/Users/jaypillai/AndroidStudioProjects/QuizApp/app/build/intermediates/pre-dexed/debug/classes-f8b00450e0ea49cb4d1e3f11a8e2b5798654eeab.jar" />
-    </item>
-    <item
-        jar="/Users/jaypillai/AndroidStudioProjects/QuizApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars/libs/internal_impl-22.1.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="9e070ad32b2700b0343e8e0cccc437733d91ba3a">
-        <dex dex="/Users/jaypillai/AndroidStudioProjects/QuizApp/app/build/intermediates/pre-dexed/debug/internal_impl-22.1.1-dc0f6d7f8f08cbb6e357202e56770e1d848c86a4.jar" />
-    </item>
-    <item
-        jar="/Users/jaypillai/AndroidStudioProjects/QuizApp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a3ff3c506644c820eb2bdf06e8339f72be578551">
-        <dex dex="/Users/jaypillai/AndroidStudioProjects/QuizApp/app/build/intermediates/pre-dexed/debug/classes-6855da5acd085fd9b3c868bcd6a769a7ba283dd0.jar" />
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="/Volumes/Data/Coding/Project/QuizApp/app/build/intermediates/pre-dexed/debug/gson-2.2.4-bb5c6e08b2568b95e7de23ff5228c18230995bd4.jar" />
     </item>
 
 </items>
