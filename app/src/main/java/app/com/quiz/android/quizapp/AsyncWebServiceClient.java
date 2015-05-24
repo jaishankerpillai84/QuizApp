@@ -60,8 +60,4 @@ public class AsyncWebServiceClient extends AsyncTask<URL, Integer, String> {
         }
         return output;
     }
-    @Override
-    protected void onPostExecute(String s) {
-        Log.v("AsyncOutput", "Output is " + s);
-    }
 }

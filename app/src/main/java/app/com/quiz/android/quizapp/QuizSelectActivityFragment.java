@@ -18,12 +18,22 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.net.URL;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+class SelectWebServiceClient extends AsyncWebServiceClient {
+    @Override
+    protected void onPostExecute(String s) {
+        List<String> quizList = new Gson().fromJson(s, new TypeToken<List<String>>(){}.getType());
+    }
+}
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class QuizSelectActivityFragment extends Fragment {
     private List<String> quizList;
+    ListAdapter quizSelectAdapter = null;
 
     public QuizSelectActivityFragment() {
         quizList = new ArrayList<String>();
@@ -32,13 +42,11 @@ public class QuizSelectActivityFragment extends Fragment {
         quizList.add("Current Affairs");
         quizList.add("Politics");
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_quiz_select, container, false);
-        ListAdapter quizSelectAdapter = new ArrayAdapter<String>(rootView.getContext(), R.layout.list_select_item, quizList);
+        quizSelectAdapter = new ArrayAdapter<String>(rootView.getContext(), R.layout.list_select_item, quizList);
         ListView quizSelectView = (ListView) rootView.findViewById(R.id.quizSelectList);
         quizSelectView.setAdapter(quizSelectAdapter);
         quizSelectView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
